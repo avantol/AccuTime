@@ -6,9 +6,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
@@ -63,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.tvSupportLink).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW,
-                Uri.parse("https://github.com/avantol/AccuTime")))
+                Uri.parse("https://github.com/avantol/AccuTime/releases/latest")))
         }
     }
 
@@ -104,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         ContextCompat.startForegroundService(this, intent)
         serviceRunning = true
         btnToggle.text = getString(R.string.btn_stop)
+        styleStopButton()
 
         nmeaLogLines.clear()
         tvNmeaLog.text = ""
@@ -114,9 +117,28 @@ class MainActivity : AppCompatActivity() {
         stopService(intent)
         serviceRunning = false
         btnToggle.text = getString(R.string.btn_start)
+        styleStartButton()
 
         tvBluetoothStatus.text = getString(R.string.status_disconnected)
         tvBluetoothStatus.setTextColor(getColor(R.color.status_disconnected))
+    }
+
+    private fun styleStartButton() {
+        btnToggle.layoutParams = (btnToggle.layoutParams as LinearLayout.LayoutParams).apply {
+            height = (64 * resources.displayMetrics.density).toInt()
+        }
+        btnToggle.textSize = 22f
+        btnToggle.backgroundTintList = ColorStateList.valueOf(0xFF4CAF50.toInt())
+        btnToggle.setTextColor(0xFFFFFFFF.toInt())
+    }
+
+    private fun styleStopButton() {
+        btnToggle.layoutParams = (btnToggle.layoutParams as LinearLayout.LayoutParams).apply {
+            height = (40 * resources.displayMetrics.density).toInt()
+        }
+        btnToggle.textSize = 14f
+        btnToggle.backgroundTintList = ColorStateList.valueOf(0xFF666666.toInt())
+        btnToggle.setTextColor(0xFFCCCCCC.toInt())
     }
 
     private fun updateUi(intent: Intent) {

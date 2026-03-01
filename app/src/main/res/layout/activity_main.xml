@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AccuTime (NMEA Bridge)"
+            android:text="AccuTime (NMEA Bridge) v1.0"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
