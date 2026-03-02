@@ -67,6 +67,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(Intent.ACTION_VIEW,
                 Uri.parse("https://github.com/avantol/AccuTime/releases/latest")))
         }
+
+        findViewById<Button>(R.id.btnExit).setOnClickListener {
+            if (serviceRunning) {
+                stopBridge()
+            }
+            finishAndRemoveTask()
+        }
     }
 
     override fun onResume() {
